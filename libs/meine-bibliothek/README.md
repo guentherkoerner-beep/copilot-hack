@@ -6,6 +6,7 @@ Dateien:
 - `main.py` — Beispielcode (funktionale API)
 - `.gitkeep` — sorgt dafür, dass der Ordner im Git auftaucht
 - `Aufgaben von Herrn Günther Körner.docx` — Word-Dokument mit Aufgaben
+- `Aufgaben von Herrn Günther Körner.pdf` — PDF-Version des Aufgaben-Dokuments
 - `Aufgaben_Rollen_Zuordnung Günther Körner ARSIC Modellierung (RACI).xlsx` — Excel-Datei mit RACI-Tabelle
 - `KPI-Katalog für Günther Körner.docx` — Word-Dokument mit KPI-Katalog
 - `Prozessübersicht Günther Körner.docx` — Prozessübersicht
