@@ -8,6 +8,7 @@ Dateien:
 - `Aufgaben von Herrn Günther Körner.docx` — Word-Dokument mit Aufgaben
 - `Aufgaben_Rollen_Zuordnung Günther Körner ARSIC Modellierung (RACI).xlsx` — Excel-Datei mit RACI-Tabelle
 - `KPI-Katalog für Günther Körner.docx` — Word-Dokument mit KPI-Katalog
+- `Prozessübersicht Günther Körner.docx` — Prozessübersicht
 
 Verwendung:
 1. Kopiere `main.py` in dein Projekt oder importiere die Funktion.
