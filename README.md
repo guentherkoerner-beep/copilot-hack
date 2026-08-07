@@ -21,3 +21,8 @@ You can find the list of maintainers in [CODEOWNERS](./.github/CODEOWNERS)
 ## Support
 
 This project is provided as-is, and may be updated over time. If you have questions, please [open an issue](/issues/new).
+
+## Anthropic-LLM-Workflow
+
+Ein GitHub Actions Workflow (.github/workflows/anthropic-llm.yml) erlaubt, Anthropic-Modelle per Actions UI anzusprechen.
+Kurz: Setze das Repository-Secret ANTHROPIC_API_KEY (optional ANTHROPIC_MODEL). In Actions -> "Run workflow" kannst du Prompt, model, temperature, max_tokens, include_files (Komma-getrennt) und commit_response (true/false) angeben. Die Antwort wird als Artifact bereitgestellt und kann optional als Datei ins Repo committed werden.
