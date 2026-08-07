@@ -1,0 +1,58 @@
+# GitHub Actions workflow: Call Anthropic LLM
+# Usage:
+# - Add repository secrets: ANTHROPIC_API_KEY (your API key), optional ANTHROPIC_MODEL (e.g., "claude-2" or "claude-3-beta")
+# - Trigger via the Actions UI (Run workflow) and provide a prompt, or leave default.
+# Note: Verify the correct Anthropic endpoint for your account (this workflow uses `/v1/complete`).
+
+name: Call Anthropic LLM
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Prompt to send to Anthropic'
+        required: false
+        default: 'Bitte fasse die relevanten KPIs und Aufgaben im Repo kurz zusammen.'
+
+jobs:
+  call-anthropic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call Anthropic API
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          PROMPT: ${{ github.event.inputs.prompt }}
+        run: |
+          set -euo pipefail
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "ERROR: Set repository secret ANTHROPIC_API_KEY with your Anthropic API key." >&2
+            exit 1
+          fi
+          MODEL=${ANTHROPIC_MODEL:-claude-2}
+
+          # Adjust endpoint if your account uses the new 'responses' API.
+          echo "Calling Anthropic model: $MODEL"
+
+          RESPONSE=$(curl -s -X POST "https://api.anthropic.com/v1/complete" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -d @- <<EOF
+{"model":"$MODEL","prompt":"$PROMPT","max_tokens_to_sample":800,"temperature":0.2}
+EOF
+)
+
+          echo "--- Anthropic response start ---"
+          echo "$RESPONSE"
+          echo "--- Anthropic response end ---"
+
+          # Save response to file for later inspection
+          echo "$RESPONSE" > anthropic-response.json
+
+      - name: Upload response artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: anthropic-response
+          path: anthropic-response.json
